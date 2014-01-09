@@ -20,53 +20,70 @@
             android:id="@+id/radioIndoors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/indoors" />
+            android:text="@string/indoors" 
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioOutdoors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/outdoors" />
+            android:text="@string/outdoors"
+            android:onClick="onRadioButtonClicked" />
     </RadioGroup>
-	<View
-	        android:layout_width="fill_parent"
-		    android:layout_height="1dp"
-		    android:background="@android:color/darker_gray"/>
-    <RadioGroup
-        android:id="@+id/typeradio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
 
-        <RadioButton
-            android:id="@+id/radioTrad"
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:id="@+id/typecontainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.89"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <RadioGroup
+            android:id="@+id/typeradio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/trad" />
+            android:orientation="vertical"
+            android:visibility="visible" >
 
-        <RadioButton
-            android:id="@+id/radioLead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lead" />
+            <RadioButton
+                android:id="@+id/radioTrad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trad" 
+                android:onClick="onRadioButtonClicked" />
 
-        <RadioButton
-            android:id="@+id/radioTopRope"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/toprope" />
+            <RadioButton
+                android:id="@+id/radioLead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lead" 
+                android:onClick="onRadioButtonClicked" />
 
-        <RadioButton
-            android:id="@+id/radioBouldering"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bouldering" />
-    </RadioGroup>
-	<View
-	        android:layout_width="fill_parent"
-		    android:layout_height="1dp"
-		    android:background="@android:color/darker_gray"/>
-    
+            <RadioButton
+                android:id="@+id/radioTopRope"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/toprope" 
+                android:onClick="onRadioButtonClicked" />
+
+            <RadioButton
+                android:id="@+id/radioBouldering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bouldering" 
+                android:onClick="onRadioButtonClicked" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+    </LinearLayout>
+
 </LinearLayout>

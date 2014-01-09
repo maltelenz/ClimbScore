@@ -1,12 +1,18 @@
 package com.maltelenz.climbscore;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.view.View;
+import android.widget.RadioButton;
 
 public class AddClimbActivity extends Activity {
+
+	private View typeContainer;
+	private RadioButton tradRadioButton;
+	private RadioButton leadRadioButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +20,11 @@ public class AddClimbActivity extends Activity {
 		setContentView(R.layout.activity_add_climb);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
+		// Initialize the various view fields
+		typeContainer = findViewById(R.id.typecontainer);
+		tradRadioButton = (RadioButton) findViewById(R.id.radioTrad);
+		leadRadioButton = (RadioButton) findViewById(R.id.radioLead);
 	}
 
 	/**
@@ -23,6 +34,35 @@ public class AddClimbActivity extends Activity {
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
+	}
+
+	public void onRadioButtonClicked(View view) {
+	    // Is the button now checked?
+	    boolean checked = ((RadioButton) view).isChecked();
+	    
+	    // Check which radio button was clicked
+	    switch(view.getId()) {
+	        case R.id.radioIndoors:
+	            if (checked)
+	                showTypeRadioGroupIndoors();
+	            break;
+	        case R.id.radioOutdoors:
+	            if (checked)
+	                showTypeRadioGroupOutdoors();
+	            break;
+	    }
+	}
+	
+	private void showTypeRadioGroupOutdoors() {
+		tradRadioButton.setVisibility(View.VISIBLE);
+		tradRadioButton.setChecked(true);
+		typeContainer.setVisibility(View.VISIBLE);
+	}
+
+	private void showTypeRadioGroupIndoors() {
+		tradRadioButton.setVisibility(View.GONE);
+		leadRadioButton.setChecked(true);
+		typeContainer.setVisibility(View.VISIBLE);
 	}
 
 	@Override
