@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.maltelenz.climbscore.AddClimbActivity"
+            android:label="@string/title_activity_add_climb"
+            android:parentActivityName="com.maltelenz.climbscore.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.maltelenz.climbscore.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
