@@ -5,10 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="add_climb">Add climb</string>
-    <string name="title_activity_add_climb">AddClimbActivity</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_activity_add_climb">Add Climb</string>
     <string name="indoors">Indoors</string>
     <string name="outdoors">Outdoors</string>
     <string name="trad">Trad</string>
