@@ -93,16 +93,24 @@
             android:orientation="vertical"
             android:visibility="gone" >
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
-
             <NumberPicker
                 android:id="@+id/gradePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/saveclimb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="saveClimb"
+            android:text="@string/saveclimb"
+            android:visibility="gone" />
     
 </LinearLayout>

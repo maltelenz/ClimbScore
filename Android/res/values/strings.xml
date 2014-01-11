@@ -12,5 +12,8 @@
     <string name="lead">Lead</string>
     <string name="toprope">Top rope</string>
     <string name="bouldering">Bouldering</string>
+    <string name="saveclimb">Save Climb</string>
+    <string name="title_activity_climb_log">ClimbLogActivity</string>
+    <string name="show_climbs">Show past climbs</string>
 
 </resources>

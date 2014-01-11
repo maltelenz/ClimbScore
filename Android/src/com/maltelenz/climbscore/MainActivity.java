@@ -27,4 +27,9 @@ public class MainActivity extends Activity {
     	Intent intent = new Intent(this, AddClimbActivity.class);
     	startActivity(intent);
     }
+    
+    public void listClimbs(View view) {
+    	Intent intent = new Intent(this, ClimbLogActivity.class);
+    	startActivity(intent);
+    }
 }

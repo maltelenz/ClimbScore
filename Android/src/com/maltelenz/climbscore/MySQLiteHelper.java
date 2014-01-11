@@ -1,0 +1,46 @@
+package com.maltelenz.climbscore;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class MySQLiteHelper extends SQLiteOpenHelper {
+
+	public static final String TABLE_CLIMBS = "climbs";
+	public static final String COLUMN_ID = "_id";
+	public static final String COLUMN_INOUT = "inoutdoors";
+	public static final String COLUMN_TYPE = "type";
+	public static final String COLUMN_GRADE = "grade";
+	public static final String COLUMN_GRADE_SYSTEM = "gradesystem";
+	public static final String COLUMN_TIMESTAMP = "timestamp";
+
+	private static final String DATABASE_NAME = "climbs.db";
+	private static final int DATABASE_VERSION = 2;
+
+	// Database creation sql statement
+	private static final String DATABASE_CREATE = "create table "
+			+ TABLE_CLIMBS + "(" + COLUMN_ID
+			+ " integer primary key autoincrement, " + COLUMN_INOUT
+			+ " text not null, " + COLUMN_TYPE + " text not null, "
+			+ COLUMN_GRADE + " text not null, " + COLUMN_GRADE_SYSTEM
+			+ " text not null, " + COLUMN_TIMESTAMP + " long);";
+
+	public MySQLiteHelper(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase database) {
+		database.execSQL(DATABASE_CREATE);
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// Log.w(MySQLiteHelper.class.getName(),
+		// "Upgrading database from version " + oldVersion + " to "
+		// + newVersion + ", which will destroy all old data");
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIMBS);
+		onCreate(db);
+	}
+
+}

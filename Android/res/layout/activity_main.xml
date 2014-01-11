@@ -9,7 +9,7 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/add_climb_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,4 +18,14 @@
         android:onClick="addClimb"
         android:text="@string/add_climb" />
 
+    <Button
+        android:id="@+id/show_climb_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_climb_main"
+        android:layout_below="@+id/add_climb_main"
+        android:minHeight="70dp"
+        android:onClick="listClimbs"
+        android:text="@string/show_climbs" />
+    
 </RelativeLayout>
