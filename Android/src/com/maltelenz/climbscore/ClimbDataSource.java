@@ -65,11 +65,15 @@ public class ClimbDataSource {
 				+ " = " + id, null);
 	}
 
+	
+	/**
+	 * @return all climbs sorted newest first
+	 */
 	public List<Climb> getAllClimbs() {
 		List<Climb> climbs = new ArrayList<Climb>();
 
 		Cursor cursor = database.query(MySQLiteHelper.TABLE_CLIMBS,
-				allColumns, null, null, null, null, null);
+				allColumns, null, null, null, null, MySQLiteHelper.COLUMN_TIMESTAMP + " DESC");
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
