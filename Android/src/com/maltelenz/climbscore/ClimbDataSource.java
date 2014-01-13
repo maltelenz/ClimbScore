@@ -1,6 +1,8 @@
 package com.maltelenz.climbscore;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -11,16 +13,21 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class ClimbDataSource {
 
-	// Database fields
 	private SQLiteDatabase database;
 	private MySQLiteHelper dbHelper;
+
+	// Database fields
 	private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
 			MySQLiteHelper.COLUMN_INOUT, MySQLiteHelper.COLUMN_TYPE,
 			MySQLiteHelper.COLUMN_GRADE, MySQLiteHelper.COLUMN_GRADE_SYSTEM,
 			MySQLiteHelper.COLUMN_TIMESTAMP };
+	
+	private DateFormat dateFormat;
 
 	public ClimbDataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
+		
+		dateFormat = DateFormat.getDateTimeInstance();
 	}
 
 	public void open() throws SQLException {
@@ -82,7 +89,7 @@ public class ClimbDataSource {
 		climb.setType(cursor.getString(2));
 		climb.setGrade(cursor.getString(3));
 		climb.setGradesystem(cursor.getString(4));
-		climb.setTimestamp(Long.getLong(cursor.getString(5)));
+		climb.setTimestamp(dateFormat.format(new Date(cursor.getLong(5) * 1000)));
 		return climb;
 	}
 }

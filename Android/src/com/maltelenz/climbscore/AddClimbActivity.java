@@ -187,7 +187,8 @@ public class AddClimbActivity extends Activity {
 		RadioButton type = (RadioButton) findViewById(typeRadioGroup.getCheckedRadioButtonId());
 		int grade = gradePicker.getValue();
 		Long timestamp = System.currentTimeMillis() / 1000L;
-		Climb climb = datasource.createClimb(inout.getText().toString(),
+
+		datasource.createClimb(inout.getText().toString(),
 				type.getText().toString(),
 				climbingGrades.get(currentGradesystem)[grade],
 				currentGradesystem, timestamp);

@@ -6,7 +6,7 @@ public class Climb {
 	private String type;
 	private String grade;
 	private String gradesystem;
-	private Long timestamp;
+	private String timestamp;
 
 	public long getId() {
 		return id;
@@ -48,11 +48,11 @@ public class Climb {
 		this.gradesystem = gradesystem;
 	}
 
-	public Long getTimestamp() {
+	public String getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Long timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
