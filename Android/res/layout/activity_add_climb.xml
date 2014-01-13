@@ -20,15 +20,20 @@
             android:id="@+id/radioIndoors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/indoors" 
-            android:onClick="onRadioButtonClicked"/>
+            android:layout_margin="5dp"
+            android:button="@drawable/indoors_radio_selector"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/indoors" />
 
         <RadioButton
             android:id="@+id/radioOutdoors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/outdoors"
-            android:onClick="onRadioButtonClicked" />
+            android:layout_margin="5dp"
+            android:button="@drawable/outdoors_radio_selector"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/outdoors" />
+
     </RadioGroup>
 
     <View
