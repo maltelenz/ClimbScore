@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class ClimbDataSource {
 
@@ -60,7 +61,7 @@ public class ClimbDataSource {
 
 	public void deleteClimb(Climb climb) {
 		long id = climb.getId();
-		// System.out.println("Comment deleted with id: " + id);
+		Log.w("ClimbDataSource", "Deleting climb: " + climb.toString());
 		database.delete(MySQLiteHelper.TABLE_CLIMBS, MySQLiteHelper.COLUMN_ID
 				+ " = " + id, null);
 	}

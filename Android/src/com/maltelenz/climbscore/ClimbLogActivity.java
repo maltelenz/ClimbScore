@@ -1,17 +1,27 @@
 package com.maltelenz.climbscore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class ClimbLogActivity extends ListActivity {
 
 	private ClimbDataSource datasource;
+	private ListView listView;
+	private List<Climb> allClimbs;
+	private ArrayAdapter<Climb> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +34,42 @@ public class ClimbLogActivity extends ListActivity {
 		datasource = new ClimbDataSource(this);
 		datasource.open();
 
-		List<Climb> allClimbs = datasource.getAllClimbs();
+		allClimbs = datasource.getAllClimbs();
 
-		// use the SimpleCursorAdapter to show the
-		// elements in a ListView
-		ArrayAdapter<Climb> adapter = new ArrayAdapter<Climb>(this,
-				android.R.layout.simple_list_item_1, allClimbs);
+		adapter = new ArrayAdapter<Climb>(this, android.R.layout.simple_list_item_multiple_choice, allClimbs);
 		setListAdapter(adapter);
+
+		listView = getListView();
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+		listView.setMultiChoiceModeListener(new LogMultipleChoiceListener(this));
+
+	}
+
+	protected void deleteSelectedItems() {
+
+		SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
+		Log.i("ClimbLogActivity", "Selected item for deletion: " + checkedItems);
+		List<Climb> toRemoveList = new ArrayList<Climb>();
+		for (int i = 0; i < checkedItems.size(); i++) {
+			if (checkedItems.valueAt(i)) {
+				Climb toRemove = allClimbs.get(checkedItems.keyAt(i));
+				toRemoveList.add(toRemove);
+			}
+		}
+
+		for (Climb c : toRemoveList) {
+			Log.i("ClimbLogActivity", "Asking for deletion of climb: " + c.toString());
+			datasource.deleteClimb(c);
+			adapter.remove(c);
+		}
+
+		Context context = getApplicationContext();
+		CharSequence text = "Deleted " + checkedItems.size() + " items.";
+		int duration = Toast.LENGTH_SHORT;
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
+		adapter.notifyDataSetChanged();
 	}
 
 	/**
@@ -66,4 +105,8 @@ public class ClimbLogActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		l.setItemChecked(position, true);
+	}
 }

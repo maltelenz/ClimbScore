@@ -15,5 +15,6 @@
     <string name="saveclimb">Save Climb</string>
     <string name="title_activity_climb_log">ClimbLogActivity</string>
     <string name="show_climbs">Show past climbs</string>
+    <string name="delete">Delete</string>
 
 </resources>
