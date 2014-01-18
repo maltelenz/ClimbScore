@@ -1,5 +1,6 @@
 package com.maltelenz.climbscore;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -17,8 +18,12 @@ public class AddClimbActivity extends Activity {
 
 	private View typeContainer;
 	private View gradeContainer;
+	private RadioButton indoorsRadioButton;
+	private RadioButton outdoorsRadioButton;
 	private RadioButton tradRadioButton;
 	private RadioButton leadRadioButton;
+	private RadioButton boulderRadioButton;
+	private RadioButton topropeRadioButton;
 	private NumberPicker gradePicker;
 	private Button saveButton;
 
@@ -52,8 +57,12 @@ public class AddClimbActivity extends Activity {
 		// Initialize the various view fields
 		typeContainer = findViewById(R.id.typecontainer);
 		gradeContainer = findViewById(R.id.gradeContainer);
+		indoorsRadioButton = (RadioButton) findViewById(R.id.radioIndoors);
+		outdoorsRadioButton = (RadioButton) findViewById(R.id.radioOutdoors);
 		tradRadioButton = (RadioButton) findViewById(R.id.radioTrad);
 		leadRadioButton = (RadioButton) findViewById(R.id.radioLead);
+		topropeRadioButton = (RadioButton) findViewById(R.id.radioTopRope);
+		boulderRadioButton = (RadioButton) findViewById(R.id.radioBouldering);
 		gradePicker = (NumberPicker) findViewById(R.id.gradePicker);
 		saveButton = (Button) findViewById(R.id.saveclimb);
 		
@@ -71,6 +80,20 @@ public class AddClimbActivity extends Activity {
 		// Set up database connection
 		datasource = new ClimbDataSource(this);
 		datasource.open();
+		
+		//initialize form from latest climb
+		Climb latestClimb = datasource.getLatestClimb();
+		if(latestClimb != null) {
+			String type = latestClimb.getType();
+			if(latestClimb.getInOutDoors().equals(getResources().getString(R.string.indoors))) {
+				showTypeRadioGroupIndoors(type);
+			} else {
+				showTypeRadioGroupOutdoors(type);
+			}
+			
+			showGradePicker(latestClimb.getGradesystem());
+			gradePicker.setValue(Arrays.asList(climbingGrades.get(currentGradesystem)).indexOf(latestClimb.getGrade()));
+		}
 	}
 
 	/**
@@ -117,19 +140,46 @@ public class AddClimbActivity extends Activity {
 	}
 
 	private void showTypeRadioGroupOutdoors() {
+		outdoorsRadioButton.setChecked(true);
 		tradRadioButton.setVisibility(View.VISIBLE);
 		tradRadioButton.setChecked(true);
 		showGradePickerTrad();
 		typeContainer.setVisibility(View.VISIBLE);
 	}
 
+	private void showTypeRadioGroupOutdoors(String type) {
+		showTypeRadioGroupOutdoors();
+		if (type.equals(getResources().getString(R.string.trad))) {
+			tradRadioButton.setChecked(true);
+		} else if (type.equals(getResources().getString(R.string.bouldering))) {
+			boulderRadioButton.setChecked(true);
+		} else if (type.equals(getResources().getString(R.string.lead))) {
+			leadRadioButton.setChecked(true);
+		} else {
+			topropeRadioButton.setChecked(true);
+		}
+	}
+
 	private void showTypeRadioGroupIndoors() {
+		indoorsRadioButton.setChecked(true);
 		tradRadioButton.setVisibility(View.GONE);
 		leadRadioButton.setChecked(true);
 		showGradePickerLead();
 		typeContainer.setVisibility(View.VISIBLE);
 	}
 
+	private void showTypeRadioGroupIndoors(String type) {
+		showTypeRadioGroupIndoors();
+		if (type.equals(getResources().getString(R.string.bouldering))) {
+			boulderRadioButton.setChecked(true);
+		} else if (type.equals(getResources().getString(R.string.lead))) {
+			leadRadioButton.setChecked(true);
+		} else {
+			topropeRadioButton.setChecked(true);
+		}
+	}
+
+	
 	private void showGradePickerBouldering() {
 		showGradePicker("Font");
 	}

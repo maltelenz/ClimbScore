@@ -87,6 +87,25 @@ public class ClimbDataSource {
 		return climbs;
 	}
 
+	/**
+	 * @return latest climb
+	 */
+	public Climb getLatestClimb() {
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_CLIMBS,
+				allColumns, null, null, null, null, MySQLiteHelper.COLUMN_TIMESTAMP + " DESC", "1");
+
+		cursor.moveToFirst();
+		
+		Climb climb = null;
+		while (!cursor.isAfterLast()) {
+			climb = cursorToClimb(cursor);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+		return climb;
+	}
+
 	private Climb cursorToClimb(Cursor cursor) {
 		Climb climb = new Climb();
 		climb.setId(cursor.getLong(0));
