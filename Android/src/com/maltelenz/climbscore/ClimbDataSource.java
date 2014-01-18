@@ -23,12 +23,16 @@ public class ClimbDataSource {
 			MySQLiteHelper.COLUMN_GRADE, MySQLiteHelper.COLUMN_GRADE_SYSTEM,
 			MySQLiteHelper.COLUMN_TIMESTAMP };
 	
+	private DateFormat dateTimeFormat;
 	private DateFormat dateFormat;
+	private DateFormat timeFormat;
 
 	public ClimbDataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
 		
-		dateFormat = DateFormat.getDateTimeInstance();
+		dateTimeFormat = DateFormat.getDateTimeInstance();
+		dateFormat = DateFormat.getDateInstance();
+		timeFormat = DateFormat.getTimeInstance();
 	}
 
 	public void open() throws SQLException {
@@ -113,7 +117,13 @@ public class ClimbDataSource {
 		climb.setType(cursor.getString(2));
 		climb.setGrade(cursor.getString(3));
 		climb.setGradesystem(cursor.getString(4));
-		climb.setTimestamp(dateFormat.format(new Date(cursor.getLong(5) * 1000)));
+		Date date = new Date(cursor.getLong(5) * 1000);
+		Date now = new Date(System.currentTimeMillis());
+		if(dateFormat.format(date).equals(dateFormat.format(now))){
+			climb.setTimestamp("Today " + timeFormat.format(date));
+		} else {
+			climb.setTimestamp(dateTimeFormat.format(date));
+		}
 		return climb;
 	}
 }
